@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Ignore postgres_data
+postgres_data/
+# Ignore Static files
+static/
+# Ignore Media Files
+media/
