@@ -14,10 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from main.views import Ping, Home
+
+apiv1 = [
+    path("ping/", Ping.as_view(), name="ping"),   
+]
+
+
+baseUrls = [
+    path("", Home.as_view(), name="home"),
+    path("dj-admin/", admin.site.urls),
+]
+"""Auth URLs"""
+baseUrls += [    
+    path("auth/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
+]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("",include(baseUrls),name="base"),
+    path("api/v1/",include(apiv1), name="API Version 1"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

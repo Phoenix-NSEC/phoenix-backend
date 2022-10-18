@@ -26,3 +26,12 @@ Use the docker-compose provided already by :
 - run `python manage.py migrate` [ For First Time ]
 - run `python manage.py collectstatic` [For the first time]
 Service will be running on `localhost:8000`
+
+
+# Endpoints Currently:
+- /api/v1 -> `API V1's`
+    - /ping -> `Ping the server`
+- / -> `BASE URL`
+- /dj-admin -> `Django Admin`
+- /auth -> `Auth`
+- /token/refresh -> `Refresh Token`
