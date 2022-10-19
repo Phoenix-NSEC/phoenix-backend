@@ -5,4 +5,4 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
 COPY . .
-CMD ["sh","entrypoint.sh"]
+CMD ["gunicorn" ,"main.wsgi" ,"-w" ,"2" ,"--bind",":8000","--reload"]
