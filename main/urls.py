@@ -21,24 +21,49 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+
 from main.views import Ping, Home
 
 apiv1 = [
-    path("ping/", Ping.as_view(), name="ping"),   
+    path("ping/", Ping.as_view(), name="ping"),
 ]
 
 
 baseUrls = [
     path("", Home.as_view(), name="home"),
-    path("dj-admin/", admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
 """Auth URLs"""
-baseUrls += [    
+baseUrls += [
     path("auth/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
+# Swagger Schema
+schema = [
+    # YOUR PATTERNS
+    path("specs/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
+]
+
+
 urlpatterns = [
-    path("",include(baseUrls),name="base"),
-    path("api/v1/",include(apiv1), name="API Version 1"),
+    path("", include(baseUrls), name="base"),
+    path("schema/", include(schema), name="schema"),
+    path("api/v1/", include(apiv1), name="API Version 1"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
