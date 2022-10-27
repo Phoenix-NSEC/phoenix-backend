@@ -37,7 +37,7 @@ apiv1 = [
 
 baseUrls = [
     path("", Home.as_view(), name="home"),
-    path("dj-admin/", admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
 """Auth URLs"""
 baseUrls += [
@@ -48,10 +48,9 @@ baseUrls += [
 # Swagger Schema
 schema = [
     # YOUR PATTERNS
-    path("", SpectacularAPIView.as_view(), name="schema"),
-    # Optional UI:
+    path("specs/", SpectacularAPIView.as_view(), name="schema"),
     path(
-        "swagger-ui/",
+        "",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),

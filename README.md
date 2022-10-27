@@ -1,6 +1,10 @@
 # phoenix-backend
 Django Rest Backend
 
+# Access Swagger UI Documentation:
+The service uses swagger for documentation and hence is accessible at 
+/schema/swagger-ui
+
 # How to Set up Locally:
 - Clone the repo
 - create a .env file with these values:
@@ -28,10 +32,3 @@ Use the docker-compose provided already by :
 Service will be running on `localhost:8000`
 
 
-# Endpoints Currently:
-- /api/v1 -> `API V1's`
-    - /ping -> `Ping the server`
-- / -> `BASE URL`
-- /dj-admin -> `Django Admin`
-- /auth -> `Auth`
-- /token/refresh -> `Refresh Token`
