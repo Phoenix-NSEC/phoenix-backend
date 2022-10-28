@@ -6,6 +6,7 @@ RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install Pillow
 RUN pip install -r requirements.txt
+RUN apk del .build-deps
 RUN pip install gunicorn
 COPY . .
 CMD ["gunicorn" ,"main.wsgi" ,"-w" ,"2" ,"--bind",":8000","--reload"]
