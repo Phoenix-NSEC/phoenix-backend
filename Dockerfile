@@ -2,6 +2,9 @@ FROM python:3.10-alpine
 RUN apk add postgresql-dev gcc python3-dev musl-dev
 WORKDIR /code
 COPY requirements.txt requirements.txt
+RUN apk add --no-cache jpeg-dev zlib-dev
+RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
+    && pip install Pillow
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
 COPY . .
