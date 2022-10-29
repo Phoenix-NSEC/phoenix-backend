@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from urllib.parse import urlparse
 import dj_database_url
+import json
+from google.oauth2 import service_account
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -170,12 +172,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+# File Storage
+DEFAULT_FILE_STORAGE = "main.storage_backends.GoogleCloudMediaStorage"
+STATICFILES_STORAGE = "main.storage_backends.GoogleCloudStaticStorage"
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+GS_MEDIA_BUCKET_NAME = "phoenix-media-backend"
+GS_STATIC_BUCKET_NAME = "phoenix-nsec-backend"
+STATIC_URL = "https://storage.googleapis.com/{}/".format(GS_STATIC_BUCKET_NAME)
+MEDIA_URL = "https://storage.googleapis.com/{}/".format(GS_MEDIA_BUCKET_NAME)
+GS_DEFAULT_ACL = "publicRead"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

@@ -136,3 +136,4 @@ static/
 # Ignore Media Files
 media/
 data/
+google-credentials.json

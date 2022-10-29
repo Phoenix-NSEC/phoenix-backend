@@ -67,4 +67,4 @@ urlpatterns = [
     path("", include(baseUrls), name="base"),
     path("schema/", include(schema), name="schema"),
     path("api/v1/", include(apiv1), name="API Version 1"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
