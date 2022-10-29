@@ -8,5 +8,5 @@ RUN pip install -r requirements.txt
 RUN apk del .build-deps
 RUN pip install gunicorn
 COPY . .
-# CMD ["gunicorn" ,"main.wsgi" ,"-w" ,"2" ,"--bind",":8000","--reload"]
+CMD ["gunicorn" ,"main.wsgi" ,"--bind",":8000"]
 ENTRYPOINT ["sh","entrypoint.sh"]
