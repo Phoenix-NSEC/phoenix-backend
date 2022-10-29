@@ -9,4 +9,4 @@ RUN apk del .build-deps
 RUN pip install gunicorn
 COPY . .
 CMD ["gunicorn" ,"main.wsgi" ,"--bind",":8000"]
-ENTRYPOINT ["sh","entrypoint.sh"]
+# ENTRYPOINT ["sh","entrypoint.sh"]
