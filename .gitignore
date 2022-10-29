@@ -135,3 +135,4 @@ postgres_data/
 static/
 # Ignore Media Files
 media/
+data/
