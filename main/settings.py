@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from urllib.parse import urlparse
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.getenv("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    CLOUDRUN_SERVICE_URL = os.getenv("CLOUDRUN_SERVICE_URL")
+    ALLOWED_HOSTS = [urlparse(CLOUDRUN_SERVICE_URL).netloc]
+    CSRF_TRUSTED_ORIGINS = [CLOUDRUN_SERVICE_URL]
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 # Application definition
@@ -42,6 +53,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "user",
     "admin_panel",
+    "member",
 ]
 
 AUTH_USER_MODEL = "user.User"
@@ -81,14 +93,17 @@ WSGI_APPLICATION = "main.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST"),
-        "PORT": os.getenv("POSTGRES_PORT"),
-    }
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": os.getenv("POSTGRES_DB"),
+    #     "USER": os.getenv("POSTGRES_USER"),
+    #     "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+    #     "HOST": os.getenv("POSTGRES_HOST"),
+    #     "PORT": os.getenv("POSTGRES_PORT"),
+    # }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"), engine="django_cockroachdb"
+    )
 }
 
 

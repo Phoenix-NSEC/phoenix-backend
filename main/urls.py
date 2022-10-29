@@ -32,6 +32,7 @@ from main.views import Ping, Home
 
 apiv1 = [
     path("ping/", Ping.as_view(), name="ping"),
+    path("user/", include("user.urls"), name="User"),
 ]
 
 

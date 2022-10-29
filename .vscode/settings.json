@@ -1,3 +1,8 @@
 {
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#451F43",
+        "titleBar.activeBackground": "#612C5E",
+        "titleBar.activeForeground": "#FCF9FC"
+    }
 }
