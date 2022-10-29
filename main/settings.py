@@ -180,7 +180,7 @@ GS_MEDIA_BUCKET_NAME = "phoenix-media-backend"
 GS_STATIC_BUCKET_NAME = "phoenix-nsec-backend"
 STATIC_URL = "https://storage.googleapis.com/{}/".format(GS_STATIC_BUCKET_NAME)
 MEDIA_URL = "https://storage.googleapis.com/{}/".format(GS_MEDIA_BUCKET_NAME)
-
+GS_DEFAULT_ACL = "publicRead"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
