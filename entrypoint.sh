@@ -8,5 +8,5 @@ else
     python manage.py collectstatic --noinputs
     python manage.py makemigrations
     python manage.py migrate
-    gunicorn main.asgi -w 10 --bind :8000
+    gunicorn main.asgi -w 2 --bind :8000
 fi
