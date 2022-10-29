@@ -36,8 +36,16 @@ if DEBUG:
     ALLOWED_HOSTS = ["*"]
 else:
     CLOUDRUN_SERVICE_URL = os.getenv("CLOUDRUN_SERVICE_URL")
-    ALLOWED_HOSTS = [urlparse(CLOUDRUN_SERVICE_URL).netloc]
-    CSRF_TRUSTED_ORIGINS = [CLOUDRUN_SERVICE_URL]
+    ALLOWED_HOSTS = [
+        urlparse(CLOUDRUN_SERVICE_URL).netloc,
+        "https://api.admin.phoenixnsec.in",
+        "https://api.phoenixnsec.in",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        CLOUDRUN_SERVICE_URL,
+        "https://api.admin.phoenixnsec.in",
+        "https://api.phoenixnsec.in",
+    ]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
