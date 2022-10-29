@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 from urllib.parse import urlparse
@@ -168,6 +169,13 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "UPDATE_LAST_LOGIN": False,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
