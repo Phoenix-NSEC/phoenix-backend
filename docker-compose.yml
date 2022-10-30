@@ -2,6 +2,7 @@ version: '3.8'
 services:
   web:
     build: .
+    command: gunicorn main.wsgi --bind :8000 --reload
     ports:
       - "8000:8000"
     volumes:

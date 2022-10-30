@@ -39,7 +39,7 @@ apiv1 = [
 
 baseUrls = [
     path("", Home.as_view(), name="home"),
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls),    
 ]
 """Auth URLs"""
 baseUrls += [
@@ -66,6 +66,6 @@ schema = [
 
 urlpatterns = [
     path("", include(baseUrls), name="base"),
-    path("schema/", include(schema), name="schema"),
     path("api/v1/", include(apiv1), name="API Version 1"),
+    path("schema/", include(schema), name="schema"),
 ]
