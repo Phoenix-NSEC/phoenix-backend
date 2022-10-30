@@ -166,6 +166,7 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "0.0.2b",
     "SERVE_INCLUDE_SCHEMA": False,
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+    'COMPONENT_SPLIT_REQUEST': True,
     # OTHER SETTINGS
 }
 

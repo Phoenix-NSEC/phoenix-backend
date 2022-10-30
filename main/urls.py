@@ -33,12 +33,13 @@ from main.views import Ping, Home
 apiv1 = [
     path("ping/", Ping.as_view(), name="ping"),
     path("user/", include("user.urls"), name="User"),
+    path("member/", include("member.urls"), name="Member"),
 ]
 
 
 baseUrls = [
     path("", Home.as_view(), name="home"),
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls),    
 ]
 """Auth URLs"""
 baseUrls += [
@@ -65,6 +66,6 @@ schema = [
 
 urlpatterns = [
     path("", include(baseUrls), name="base"),
-    path("schema/", include(schema), name="schema"),
     path("api/v1/", include(apiv1), name="API Version 1"),
+    path("schema/", include(schema), name="schema"),
 ]
