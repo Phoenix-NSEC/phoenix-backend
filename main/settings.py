@@ -50,7 +50,6 @@ else:
 
     CORS_ORIGIN_WHITELIST = (
         "http://localhost:3000",
-        "http://localhost:*",  # for localhost (REACT Default)
         "http://admin.phoenixnsec.in",
         "https://admin.phoenixnsec.in",  # for network
         "http://phoenixnsec.in",
@@ -64,7 +63,6 @@ else:
         "http://localhost:3000",
         "https://api.admin.phoenixnsec.in",
         "https://api.phoenixnsec.in",
-        "http://localhost:*",  # `` for localhost (REACT Default)
         "http://admin.phoenixnsec.in",
         "https://admin.phoenixnsec.in",  # for network
         "http://phoenixnsec.in",
