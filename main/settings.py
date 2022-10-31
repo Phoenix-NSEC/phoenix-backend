@@ -36,52 +36,48 @@ DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
+    CLOUDRUN_SERVICE_URL = "http://localhost:8000"
 else:
     CLOUDRUN_SERVICE_URL = os.getenv("CLOUDRUN_SERVICE_URL")
     ALLOWED_HOSTS = [
         urlparse(CLOUDRUN_SERVICE_URL).netloc,
-        "https://api.admin.phoenixnsec.in",
-        "https://api.phoenixnsec.in",
+        "api.admin.phoenixnsec.in",
+        "api.phoenixnsec.in",
     ]
 
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CORS_ALLOW_CREDENTIALS = True
 
-    CORS_ORIGIN_WHITELIST = (
-        "http://localhost:3000",
-        "http://admin.phoenixnsec.in",
-        "https://admin.phoenixnsec.in",  # for network
-        "http://phoenixnsec.in",
-        "https://phoenixnsec.in",
-        "http://www.phoenixnsec.in",
-        "https://www.phoenixnsec.in",
-    )
+CORS_ALLOW_CREDENTIALS = True
 
-    CSRF_TRUSTED_ORIGINS = [
-        CLOUDRUN_SERVICE_URL,
-        "http://localhost:3000",
-        "https://api.admin.phoenixnsec.in",
-        "https://api.phoenixnsec.in",
-        "http://admin.phoenixnsec.in",
-        "https://admin.phoenixnsec.in",  # for network
-        "http://phoenixnsec.in",
-        "https://phoenixnsec.in",
-        "http://www.phoenixnsec.in",
-        "https://www.phoenixnsec.in",
-    ]
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:3000",
+    "http://admin.phoenixnsec.in",
+    "https://admin.phoenixnsec.in",  # for network
+    "http://phoenixnsec.in",
+    "https://phoenixnsec.in",
+    "http://www.phoenixnsec.in",
+    "https://www.phoenixnsec.in",
+)
 
-    CORS_ALLOW_HEADERS = [
-        "accept",
-        "accept-encoding",
-        "authorization",
-        "content-type",
-        "dnt",
-        "origin",
-        "user-agent",
-        "x-csrftoken",
-        "x-requested-with",
-    ]
+CSRF_TRUSTED_ORIGINS = [
+    CLOUDRUN_SERVICE_URL,
+    "http://localhost:3000",
+    "http://*.phoenixnsec.in",
+    "https://*.phoenixnsec.in",  # for network
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 
 # Application definition
@@ -231,26 +227,19 @@ USE_I18N = True
 USE_TZ = True
 
 # File Storage
-DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropBoxStorage"
-STATICFILES_STORAGE = "storages.backends.dropbox.DropBoxStorage"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
 
-DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
-DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
-DROPBOX_AUTHORIZATION_KEY = os.getenv("DROPBOX_AUTHORIZATION_KEY")
-DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
-DROPBOX_OAUTH2_REFRESH_TOKEN = os.getenv("DROPBOX_OAUTH2_REFRESH_TOKEN")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_S3_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
 
-
-# AWS_ACCESS_KEY_ID = os.getenv("AWS_S3_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
-
-# AWS_STORAGE_BUCKET_NAME = "phoenix-nsec-backend"
-# AWS_STATIC_BUCKET_NAME = "phoenix-nsec-static"
-# STATIC_URL = "https://s3.ir-thr-at1.arvanstorage.com/{}/".format(
-#     AWS_STORAGE_BUCKET_NAME
-# )
-# MEDIA_URL = "https://s3.ir-thr-at1.arvanstorage.com/{}/".format(AWS_STORAGE_BUCKET_NAME)
-# AWS_DEFAULT_ACL = "publicRead"
+AWS_STORAGE_BUCKET_NAME = "phoenix-nsec"
+AWS_STATIC_BUCKET_NAME = "phoenix-static"
+STATIC_URL = "https://s3.fr-par.scw.cloud/{}/".format(AWS_STATIC_BUCKET_NAME)
+MEDIA_URL = "https://s3.fr-par.scw.cloud/{}/".format(AWS_STORAGE_BUCKET_NAME)
+AWS_S3_REGION_NAME = "fr-par"
+AWS_DEFAULT_ACL = "public-read"
+AWS_S3_ENDPOINT_URL = "https://s3.fr-par.scw.cloud"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
