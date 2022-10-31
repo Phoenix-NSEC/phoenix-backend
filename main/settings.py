@@ -43,13 +43,45 @@ else:
         "https://api.admin.phoenixnsec.in",
         "https://api.phoenixnsec.in",
     ]
+
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    CORS_ALLOW_CREDENTIALS = True
+
+    CORS_ORIGIN_WHITELIST = (
+        "http://localhost:*",  # for localhost (REACT Default)
+        "http://admin.phoenixnsec.in",
+        "https://admin.phoenixnsec.in",  # for network
+        "http://phoenixnsec.in",
+        "https://phoenixnsec.in",
+        "http://www.phoenixnsec.in",
+        "https://www.phoenixnsec.in",
+    )
+
     CSRF_TRUSTED_ORIGINS = [
         CLOUDRUN_SERVICE_URL,
         "https://api.admin.phoenixnsec.in",
         "https://api.phoenixnsec.in",
+        "http://localhost:*",  # for localhost (REACT Default)
+        "http://admin.phoenixnsec.in",
+        "https://admin.phoenixnsec.in",  # for network
+        "http://phoenixnsec.in",
+        "https://phoenixnsec.in",
+        "http://www.phoenixnsec.in",
+        "https://www.phoenixnsec.in",
     ]
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    CORS_ALLOW_HEADERS = [
+        "accept",
+        "accept-encoding",
+        "authorization",
+        "content-type",
+        "dnt",
+        "origin",
+        "user-agent",
+        "x-csrftoken",
+        "x-requested-with",
+    ]
 
 
 # Application definition
@@ -61,6 +93,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     "rest_framework",
     "django_filters",
     "drf_spectacular",
@@ -74,6 +107,7 @@ AUTH_USER_MODEL = "user.User"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

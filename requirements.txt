@@ -9,6 +9,7 @@ distlib==0.3.6
 dj-database-url==1.0.0
 Django==4.1.2
 django-cockroachdb==4.1
+django-cors-headers==3.13.0
 django-filter==22.1
 django-storages==1.13.1
 djangorestframework==3.14.0
