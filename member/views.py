@@ -10,24 +10,23 @@ from rest_framework.generics import (
     UpdateAPIView,
     DestroyAPIView,
 )
-from member.models import Member
-from member.serializers import MemberListSerializer,MemberUpdateSerializer
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework.exceptions import NotFound
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+from member.models import Member
+from member.serializers import MemberListSerializer, MemberUpdateSerializer
+from member.filters import MemberFilter
+
 # Create your views here.
-class MemberListView(ListAPIView,CreateAPIView):
-    """
-    # Lists all the members
-    ## Another Smaller Heading
-    - Awesome 
-    - Great
-        - Listed
-        - Awesome 
-    """
+class MemberListView(ListAPIView, CreateAPIView):
     serializer_class = MemberUpdateSerializer
     queryset = Member.objects.all()
     permission_classes = (IsAdminOrWriteOnly,)
-  
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_class = MemberFilter
+    ordering = ["updated_at"]
+    ordering_fields = ("graduation", "updated_at", "department")
 
 
 class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
@@ -35,10 +34,9 @@ class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
 
     def get_object(self):
         try:
-            return Member.objects.get(id=self.kwargs['pk'])
+            return Member.objects.get(id=self.kwargs["pk"])
         except Member.DoesNotExist:
             raise NotFound(detail="Member not Found")
-    
 
     # def set_queryset(self, request):
     #     serializer = MemberListSerializer(data=request.data,context={"request": request})
@@ -47,16 +45,17 @@ class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
     #         return Response({error:false,message:"Form Submitted",data:serializer.data})
     #     else:
     #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class MemberVerifyView(APIView):
-    
     def get_object(self):
         try:
-            return Member.objects.get(id=self.kwargs['pk'])
+            return Member.objects.get(id=self.kwargs["pk"], is_verified=False)
         except Member.DoesNotExist:
-            raise NotFound(detail="Member not Found")
-    
-    def get(self, request, *args,**kwargs):
+            raise NotFound(detail="Member not Found/Already Verified")
+
+    def get(self, request, *args, **kwargs):
         member = self.get_object()
         member.is_verified = True
         member.save()
-        return Response({"error":False,"message":"Member Verified"})
+        return Response({"error": False, "message": "Member Verified"})
