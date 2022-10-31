@@ -31,11 +31,9 @@ def get_current_year():
 
 
 class Member(models.Model):
-    name = models.CharField(max_length=254, default="Ashok Kumar")
+    name = models.CharField(max_length=254)
     sex = models.CharField(max_length=2, choices=SEX_CHOICES, null=True)
-    email = models.EmailField(
-        max_length=254, unique=True, default="email@placeholder.com"
-    )
+    email = models.EmailField(max_length=254, unique=True)
 
     whatsapp = models.BigIntegerField(null=True, blank=True)
     contact = models.BigIntegerField(null=True, blank=True)

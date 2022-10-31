@@ -20,7 +20,7 @@ from member.filters import MemberFilter
 
 # Create your views here.
 class MemberListView(ListAPIView, CreateAPIView):
-    serializer_class = MemberUpdateSerializer
+    serializer_class = MemberListSerializer
     queryset = Member.objects.all()
     permission_classes = (IsAdminOrWriteOnly,)
     filter_backends = (DjangoFilterBackend, OrderingFilter)
@@ -30,7 +30,7 @@ class MemberListView(ListAPIView, CreateAPIView):
 
 
 class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
-    serializer_class = MemberListSerializer
+    serializer_class = MemberUpdateSerializer
 
     def get_object(self):
         try:
