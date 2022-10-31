@@ -226,16 +226,23 @@ USE_I18N = True
 USE_TZ = True
 
 # File Storage
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
+DEFAULT_FILE_STORAGE = "main.storages.MediaRootS3Boto3Storage"
+STATICFILES_STORAGE = "main.storages.StaticRootS3Boto3Storage"
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_S3_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
 
 AWS_STORAGE_BUCKET_NAME = "phoenix-nsec"
-AWS_STATIC_BUCKET_NAME = "phoenix-static"
-STATIC_URL = "https://s3.fr-par.scw.cloud/{}/".format(AWS_STATIC_BUCKET_NAME)
-MEDIA_URL = "https://s3.fr-par.scw.cloud/{}/".format(AWS_STORAGE_BUCKET_NAME)
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+STATIC_URL = "https://{}.s3.fr-par.scw.cloud/{}/".format(
+    AWS_STORAGE_BUCKET_NAME, STATIC_LOCATION
+)
+MEDIA_URL = "https://{}.s3.fr-par.scw.cloud/{}/".format(
+    AWS_STORAGE_BUCKET_NAME, MEDIA_LOCATION
+)
 AWS_S3_REGION_NAME = "fr-par"
 AWS_DEFAULT_ACL = "public-read"
 AWS_S3_ENDPOINT_URL = "https://s3.fr-par.scw.cloud"
