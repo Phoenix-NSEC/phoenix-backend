@@ -10,25 +10,23 @@ from rest_framework.generics import (
     UpdateAPIView,
     DestroyAPIView,
 )
-from member.models import Member
-from member.serializers import MemberListSerializer, MemberUpdateSerializer
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework.exceptions import NotFound
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+from member.models import Member
+from member.serializers import MemberListSerializer, MemberUpdateSerializer
+from member.filters import MemberFilter
 
 # Create your views here.
 class MemberListView(ListAPIView, CreateAPIView):
-    """
-    # Lists all the members
-    ## Another Smaller Heading
-    - Awesome
-    - Great
-        - Listed
-        - Awesome
-    """
-
     serializer_class = MemberUpdateSerializer
     queryset = Member.objects.all()
     permission_classes = (IsAdminOrWriteOnly,)
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_class = MemberFilter
+    ordering = ["updated_at"]
+    ordering_fields = ("graduation", "updated_at", "department")
 
 
 class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):

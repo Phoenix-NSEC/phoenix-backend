@@ -13,7 +13,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "name", "email", "avatar", "is_staff", "is_active")
+        fields = ("id", "name", "email", "avatar", "is_staff", "is_active", "password")
 
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data.get("password"))

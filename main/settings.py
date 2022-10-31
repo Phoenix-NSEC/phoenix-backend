@@ -17,7 +17,8 @@ from urllib.parse import urlparse
 import dj_database_url
 import json
 from google.oauth2 import service_account
-
+from django import __version__ as DJANGO_VERSION
+from rest_framework import VERSION as REST_FRAMEWORK_VERSION
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_filters",
     "drf_spectacular",
     "user",
     "admin_panel",
@@ -158,15 +160,20 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Phoenix Django Backend",
-    "DESCRIPTION": """
-    Really Great
-    You Know it
+    "TITLE": "Phoenix Backend",
+    "DESCRIPTION": f"""
+    # Phoenix's Backend Written in Django.
+    Django Version: {DJANGO_VERSION}
+    DRF Version: {REST_FRAMEWORK_VERSION}
     """,
-    "VERSION": "0.0.2b",
+    "VERSION": "0.1.0b",
     "SERVE_INCLUDE_SCHEMA": False,
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
-    'COMPONENT_SPLIT_REQUEST': True,
+    "COMPONENT_SPLIT_REQUEST": True,
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+    "CONTACT": {"name": "Phoenix NSEC", "url": "https://phoenixnsec.in"},
+    "LICENSE": {"name": "MIT"},
+    # "SWAGGER_UI_DIST": "https://unpkg.com/swagger-ui-dist@4.15.2/"
     # OTHER SETTINGS
 }
 
