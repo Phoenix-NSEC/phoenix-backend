@@ -49,6 +49,7 @@ else:
     CORS_ALLOW_CREDENTIALS = True
 
     CORS_ORIGIN_WHITELIST = (
+        "http://localhost:3000",
         "http://localhost:*",  # for localhost (REACT Default)
         "http://admin.phoenixnsec.in",
         "https://admin.phoenixnsec.in",  # for network
@@ -60,9 +61,10 @@ else:
 
     CSRF_TRUSTED_ORIGINS = [
         CLOUDRUN_SERVICE_URL,
+        "http://localhost:3000",
         "https://api.admin.phoenixnsec.in",
         "https://api.phoenixnsec.in",
-        "http://localhost:*",  # for localhost (REACT Default)
+        "http://localhost:*",  # `` for localhost (REACT Default)
         "http://admin.phoenixnsec.in",
         "https://admin.phoenixnsec.in",  # for network
         "http://phoenixnsec.in",
