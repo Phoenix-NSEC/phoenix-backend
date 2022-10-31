@@ -36,52 +36,48 @@ DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
+    CLOUDRUN_SERVICE_URL = "http://localhost:8000"
 else:
     CLOUDRUN_SERVICE_URL = os.getenv("CLOUDRUN_SERVICE_URL")
     ALLOWED_HOSTS = [
         urlparse(CLOUDRUN_SERVICE_URL).netloc,
-        "https://api.admin.phoenixnsec.in",
-        "https://api.phoenixnsec.in",
+        "api.admin.phoenixnsec.in",
+        "api.phoenixnsec.in",
     ]
 
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CORS_ALLOW_CREDENTIALS = True
 
-    CORS_ORIGIN_WHITELIST = (
-        "http://localhost:3000",
-        "http://admin.phoenixnsec.in",
-        "https://admin.phoenixnsec.in",  # for network
-        "http://phoenixnsec.in",
-        "https://phoenixnsec.in",
-        "http://www.phoenixnsec.in",
-        "https://www.phoenixnsec.in",
-    )
+CORS_ALLOW_CREDENTIALS = True
 
-    CSRF_TRUSTED_ORIGINS = [
-        CLOUDRUN_SERVICE_URL,
-        "http://localhost:3000",
-        "https://api.admin.phoenixnsec.in",
-        "https://api.phoenixnsec.in",
-        "http://admin.phoenixnsec.in",
-        "https://admin.phoenixnsec.in",  # for network
-        "http://phoenixnsec.in",
-        "https://phoenixnsec.in",
-        "http://www.phoenixnsec.in",
-        "https://www.phoenixnsec.in",
-    ]
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:3000",
+    "http://admin.phoenixnsec.in",
+    "https://admin.phoenixnsec.in",  # for network
+    "http://phoenixnsec.in",
+    "https://phoenixnsec.in",
+    "http://www.phoenixnsec.in",
+    "https://www.phoenixnsec.in",
+)
 
-    CORS_ALLOW_HEADERS = [
-        "accept",
-        "accept-encoding",
-        "authorization",
-        "content-type",
-        "dnt",
-        "origin",
-        "user-agent",
-        "x-csrftoken",
-        "x-requested-with",
-    ]
+CSRF_TRUSTED_ORIGINS = [
+    CLOUDRUN_SERVICE_URL,
+    "http://localhost:3000",
+    "http://*.phoenixnsec.in",
+    "https://*.phoenixnsec.in",  # for network
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 
 # Application definition
