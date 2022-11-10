@@ -1,3 +1,6 @@
 {
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///Users/shreyammaity/Desktop/phoenix-backend/.github/workflows/deploy.yaml"
+    }
 }
