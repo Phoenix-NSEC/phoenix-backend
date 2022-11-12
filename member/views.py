@@ -28,6 +28,11 @@ class MemberListView(ListAPIView, CreateAPIView):
     ordering = ["updated_at"]
     ordering_fields = ("graduation", "updated_at", "department")
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        print("hehe:", queryset.values("id"))
+        return queryset
+
 
 class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
     serializer_class = MemberUpdateSerializer
@@ -52,7 +57,7 @@ class MemberVerifyView(APIView):
         try:
             return Member.objects.get(id=self.kwargs["pk"], is_verified=False)
         except Member.DoesNotExist:
-            raise NotFound(detail="Member not Found/Already Verified")
+            raise NotFound(detail="Member not Found/Already Verified")  # type: ignore
 
     def get(self, request, *args, **kwargs):
         member = self.get_object()

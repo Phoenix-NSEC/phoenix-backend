@@ -4,6 +4,8 @@ from django.contrib.auth.hashers import make_password
 
 
 class UserListSerializer(serializers.ModelSerializer):
+    id = serializers.CharField()
+
     password = serializers.CharField(
         write_only=True,
         required=True,
@@ -21,6 +23,8 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class UserDetailSerizlier(serializers.ModelSerializer):
+    id = serializers.CharField()
+
     password = serializers.CharField(
         write_only=True,
         required=True,

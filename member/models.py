@@ -27,7 +27,7 @@ SEX_CHOICES = (
 
 
 def get_current_year():
-    return datetime.now().year
+    return datetime.now().year  # type: ignore
 
 
 class Member(models.Model):
