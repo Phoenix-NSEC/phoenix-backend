@@ -30,7 +30,6 @@ class MemberListView(ListAPIView, CreateAPIView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        print("hehe:", queryset.values("id"))
         return queryset
 
 
