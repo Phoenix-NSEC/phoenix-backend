@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import permissions
-from main.permissions import IsAdminOrWriteOnly
+from main.permissions import IsAdminOrWriteOnly, IsAdminOrReadOnly
 from rest_framework.views import APIView
 from django.shortcuts import render
 from rest_framework.generics import (
@@ -35,6 +35,7 @@ class MemberListView(ListAPIView, CreateAPIView):
 
 
 class MemberDetailView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
+    permission_classes = (IsAdminOrReadOnly,)
     serializer_class = MemberUpdateSerializer
 
     def get_object(self):
