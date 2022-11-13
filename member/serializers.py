@@ -4,7 +4,7 @@ from rest_framework import permissions
 
 
 class MemberListSerializer(serializers.ModelSerializer):
-    id = serializers.CharField()
+    id = serializers.CharField(read_only=True)
 
     class Meta:
         model = Member
@@ -18,7 +18,7 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
     Returns only not sensitive data if anyone else
     """
 
-    id = serializers.CharField()
+    id = serializers.CharField(read_only=True)
 
     class Meta:
         model = Member
